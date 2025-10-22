@@ -15,7 +15,7 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
         if (items == null) return;
 
         Map<Long, T> mapa = items.stream()
-                // 4. Agora "item" é do tipo "T", que implementa Identifiable
+                
                 .filter(item -> item != null && item.getId() != null) // <-- ERRO CORRIGIDO
                 .collect(Collectors.toMap(
                         Identifiable::getId,
