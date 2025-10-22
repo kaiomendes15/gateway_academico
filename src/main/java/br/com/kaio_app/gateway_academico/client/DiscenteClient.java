@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class DiscenteClient implements Client {
 
     @Autowired
-    private RestTemplate restTemplate; // Vamos configurar esse Bean
+    private RestTemplate restTemplate;
 
     // Injeta a URL do application.properties
     @Value("${api.externa.discente.url}")
@@ -50,5 +50,4 @@ public class DiscenteClient implements Client {
     }
 
 
-    // (Se a API retornar uma lista, você pode criar um método que retorna DiscenteDTO[])
 }
