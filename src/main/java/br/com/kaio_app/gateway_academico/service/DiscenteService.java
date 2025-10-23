@@ -5,6 +5,7 @@ import br.com.kaio_app.gateway_academico.repository.DiscenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -22,5 +23,9 @@ public class DiscenteService {
         // A lógica agora é simples: apenas busca no repositório em memória.
         // O "DataLoader" já fez o trabalho de buscar na API.
         return discenteRepository.findById(id);
+    }
+
+    public Collection<DiscenteDTO> consultAllStudents() {
+        return discenteRepository.findAll();
     }
 }

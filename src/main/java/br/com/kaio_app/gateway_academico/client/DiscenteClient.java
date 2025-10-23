@@ -4,6 +4,7 @@ import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -42,7 +43,7 @@ public class DiscenteClient implements Client {
                             Function.identity()     // Valor (Value) é o próprio objeto discente
                     ));
 
-        } catch (Exception e) {
+        } catch (RestClientException e) {
             System.err.println("Erro ao buscar discentes: " + e.getMessage());
 
             return Collections.emptyMap();
