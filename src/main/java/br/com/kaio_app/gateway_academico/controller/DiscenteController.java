@@ -24,8 +24,7 @@ public class DiscenteController {
     private DiscenteService discenteService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> consultStudent(@PathVariable Long id,
-                                            HttpServletRequest request) {
+    public ResponseEntity<Object> consultStudent(@PathVariable Long id, HttpServletRequest request) {
         // Lembrete -> O optional de um tipo em uma variável é declarar que
         // aquela variável é opcional, ou seja, ela pode receber um valor com
         // aquele tipo especificado ou null.
