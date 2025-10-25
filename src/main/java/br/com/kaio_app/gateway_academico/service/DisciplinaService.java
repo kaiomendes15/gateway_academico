@@ -27,7 +27,7 @@ public class DisciplinaService {
         return disciplinaRepository.findById(id);
     }
 
-    public Collection<DisciplinaDTO> consultAllStudents() {
+    public Collection<DisciplinaDTO> consultAllDisciplines() {
         return disciplinaRepository.findAll();
     }
 }
