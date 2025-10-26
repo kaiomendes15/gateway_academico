@@ -1,8 +1,11 @@
 package br.com.kaio_app.gateway_academico.config;
 
 import br.com.kaio_app.gateway_academico.client.DiscenteClient;
+import br.com.kaio_app.gateway_academico.client.DisciplinaClient;
 import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
+import br.com.kaio_app.gateway_academico.model.DisciplinaDTO;
 import br.com.kaio_app.gateway_academico.repository.DiscenteRepository;
+import br.com.kaio_app.gateway_academico.repository.DisciplinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,8 +21,17 @@ public class DataLoader implements CommandLineRunner {
     private final DiscenteClient discenteClient;
     private final DiscenteRepository discenteRepository;
 
+    private final DisciplinaClient disciplinaClient;
+    private final DisciplinaRepository disciplinaRepository;
+
     @Autowired
-    public DataLoader(DiscenteClient discenteClient, DiscenteRepository discenteRepository) {
+    public DataLoader(
+            DiscenteClient discenteClient,
+            DiscenteRepository discenteRepository,
+            DisciplinaClient disciplinaClient,
+            DisciplinaRepository disciplinaRepository) {
+        this.disciplinaClient = disciplinaClient;
+        this.disciplinaRepository = disciplinaRepository;
         this.discenteClient = discenteClient;
         this.discenteRepository = discenteRepository;
     }
@@ -32,6 +44,14 @@ public class DataLoader implements CommandLineRunner {
             System.out.println("Discentes carregados: " + discentes.size());
         } catch (RestClientException e) {
             System.err.println("Falha ao carregar Discentes: " + e.getMessage());
+        }
+
+        try {
+            Map<Long, DisciplinaDTO> disciplina = disciplinaClient.getAll();
+            disciplinaRepository.saveAll(disciplina.values());
+            System.out.println("Disciplinas carregadas: " + disciplina.size());
+        } catch (RestClientException e) {
+            System.err.println("Falha ao carregar Disciplinas: " + e.getMessage());
         }
     }
 }
