@@ -71,7 +71,7 @@ O projeto segue uma arquitetura em camadas bem definida para aderir ao princípi
     * `lombok`: Para reduzir boilerplate (Getters, Setters, etc.).
 * **Build:** Maven
 
-## [cite_start]5. Instruções de Execução [cite: 65]
+## 5. Instruções de Execução
 
 **Pré-requisitos:**
 * Java JDK 21 (ou superior)
@@ -97,7 +97,7 @@ O projeto segue uma arquitetura em camadas bem definida para aderir ao princípi
 
 3.  A aplicação estará disponível em `http://localhost:8080`.
 
-## 7. Exemplos de Endpoints
+## 6. Exemplos de Endpoints
 
 * **Consultar Discente:** `GET /discentes/{id}`
 * **Listar Disciplinas:** `GET /disciplinas`
