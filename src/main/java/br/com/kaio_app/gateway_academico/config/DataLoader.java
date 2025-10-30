@@ -1,8 +1,9 @@
 package br.com.kaio_app.gateway_academico.config;
 
-import br.com.kaio_app.gateway_academico.client.DiscenteClient;
-import br.com.kaio_app.gateway_academico.client.DisciplinaClient;
-import br.com.kaio_app.gateway_academico.client.LivroClient;
+// 1. IMPORTS ATUALIZADOS
+// Removemos DiscenteClient, DisciplinaClient, LivroClient
+// Adicionamos a interface genérica Client
+import br.com.kaio_app.gateway_academico.client.Client;
 import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
 import br.com.kaio_app.gateway_academico.model.DisciplinaDTO;
 import br.com.kaio_app.gateway_academico.model.LivroDTO;
@@ -12,31 +13,31 @@ import br.com.kaio_app.gateway_academico.repository.DisciplinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 
 import java.util.Map;
 
 @Component
 public class DataLoader implements CommandLineRunner {
-    // CommandLineRunner => interface do Spring Boot feita exatamente para
-    // executar um código na inicialização
 
-    private final DiscenteClient discenteClient;
+    // 2. DEPENDÊNCIAS ATUALIZADAS
+    // Agora dependemos da interface genérica, não das implementações
+    private final Client<DiscenteDTO> discenteClient;
     private final DiscenteRepository discenteRepository;
 
-    private final DisciplinaClient disciplinaClient;
+    private final Client<DisciplinaDTO> disciplinaClient;
     private final DisciplinaRepository disciplinaRepository;
 
-    private final LivroClient bookClient;
+    private final Client<LivroDTO> bookClient;
     private final BookRepository bookRepository;
 
     @Autowired
+    // 3. CONSTRUTOR ATUALIZADO
     public DataLoader(
-            DiscenteClient discenteClient,
+            Client<DiscenteDTO> discenteClient, // <- Mudou
             DiscenteRepository discenteRepository,
-            DisciplinaClient disciplinaClient,
+            Client<DisciplinaDTO> disciplinaClient, // <- Mudou
             DisciplinaRepository disciplinaRepository,
-            LivroClient bookClient,
+            Client<LivroDTO> bookClient, // <- Mudou
             BookRepository bookRepository
     ) {
         this.disciplinaClient = disciplinaClient;
@@ -48,29 +49,27 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
+    // 4. MÉTODO RUN MUITO MAIS LIMPO
     public void run(String... args) throws Exception {
-        try {
-            Map<Long, DiscenteDTO> discentes = discenteClient.getAll();
-            discenteRepository.saveAll(discentes.values());
-            System.out.println("Discentes carregados: " + discentes.size());
-        } catch (RestClientException e) {
-            System.err.println("Falha ao carregar Discentes: " + e.getMessage());
-        }
 
-        try {
-            Map<Long, DisciplinaDTO> disciplina = disciplinaClient.getAll();
-            disciplinaRepository.saveAll(disciplina.values());
-            System.out.println("Disciplinas carregadas: " + disciplina.size());
-        } catch (RestClientException e) {
-            System.err.println("Falha ao carregar Disciplinas: " + e.getMessage());
-        }
+        // O bloco try-catch (RestClientException) foi removido.
+        // A GenericClient já trata a falha e retorna um mapa vazio,
+        // cumprindo o requisito de "Degradação Graciosa".
 
-        try {
-            Map<Long, LivroDTO> books = bookClient.getAll();
-            bookRepository.saveAll(books.values());
-            System.out.println("Livros carregados: " + books.size());
-        } catch (RestClientException e) {
-            System.err.println("Falha ao carregar Livros: " + e.getMessage());
-        }
+        System.out.println("Iniciando carga de dados dos microsserviços...");
+
+        Map<Long, DiscenteDTO> discentes = discenteClient.getAll();
+        discenteRepository.saveAll(discentes.values());
+        System.out.println("Discentes carregados: " + discentes.size());
+
+        Map<Long, DisciplinaDTO> disciplina = disciplinaClient.getAll();
+        disciplinaRepository.saveAll(disciplina.values());
+        System.out.println("Disciplinas carregadas: " + disciplina.size());
+
+        Map<Long, LivroDTO> books = bookClient.getAll();
+        bookRepository.saveAll(books.values());
+        System.out.println("Livros carregados: " + books.size());
+
+        System.out.println("Carga de dados finalizada.");
     }
 }
