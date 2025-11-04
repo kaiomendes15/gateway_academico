@@ -3,6 +3,8 @@ package br.com.kaio_app.gateway_academico.repository;
 import br.com.kaio_app.gateway_academico.model.Identifiable;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface RelacaoRepository<T extends Identifiable> {
@@ -15,11 +17,10 @@ public interface RelacaoRepository<T extends Identifiable> {
     // salvar todos os alunos na "tabela de junção em memório"
     void saveAll(Collection<T> items);
 
-    // buscar pelo aluno por id
-    Optional<T> findById(Long id);
+    Optional<List<Long>> findById(Long id);
 
     /** Retorna todos os itens em memória. */
-    Collection<T> findAll();
+    Map<Long, List<Long>> findAll();
 
     /** Deleta um item específico de um certo aluno */
     void deleteById(Long discenteId, Long contentToDeleteId);

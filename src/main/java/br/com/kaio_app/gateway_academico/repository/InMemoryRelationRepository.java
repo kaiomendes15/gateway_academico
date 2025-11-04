@@ -1,10 +1,8 @@
 package br.com.kaio_app.gateway_academico.repository;
 
-import br.com.kaio_app.gateway_academico.model.DisciplinaDTO;
 import br.com.kaio_app.gateway_academico.model.Identifiable;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class InMemoryRelationRepository<T extends Identifiable> implements RelacaoRepository<T> {
@@ -49,19 +47,17 @@ public class InMemoryRelationRepository<T extends Identifiable> implements Relac
     }
 
     @Override
-    public Optional<T> findById(Long id) {
-        return Optional.empty();
+    public Optional<List<Long>> findById(Long id) {
+        return Optional.ofNullable(DB_EM_MEMORIA.get(id));
     }
 
     @Override
-    public Collection<T> findAll() {
-        return List.of();
+    public Map<Long, List<Long>> findAll() {
+        return DB_EM_MEMORIA;
     }
 
     @Override
-    public void deleteById(Long discenteId, Long contentToDeleteId) {
-
-    }
+    public void deleteById(Long discenteId, Long contentToDeleteId) {}
 
 
 
