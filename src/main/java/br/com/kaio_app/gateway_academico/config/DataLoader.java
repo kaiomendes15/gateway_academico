@@ -68,7 +68,9 @@ public class DataLoader implements CommandLineRunner {
         Map<Long, DiscenteDTO> discentes = discenteClient.getAll();
         discenteRepository.saveAll(discentes.values());
         System.out.println("Discentes carregados: " + discentes.size());
+
         relationDiscenteDisciplinaRepository.saveAll(discentes.values());
+        /* vvv remover isso vvv*/
         Map<Long, List<Long>> hash =
                 relationDiscenteDisciplinaRepository.findAll();
         for (Map.Entry<Long, List<Long>> entry : hash.entrySet()) {
@@ -77,6 +79,7 @@ public class DataLoader implements CommandLineRunner {
             System.out.println("Usuário " + key + ", Lista de disciplinas " +
                     "matriculadas: " + value);
         }
+        /* ^^^^ remover isso ^^^^*/
         System.out.println("Discentes alocados no hashmap de relação.");
 
 
