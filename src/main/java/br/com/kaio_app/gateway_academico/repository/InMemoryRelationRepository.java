@@ -57,7 +57,14 @@ public class InMemoryRelationRepository<T extends Identifiable> implements Relac
     }
 
     @Override
-    public void deleteById(Long discenteId, Long contentToDeleteId) {}
+    public void deleteItemFromListById(Long discenteId, Long contentToDeleteId) {
+
+    }
+
+    @Override
+    public void addItemToList(Long discenteId, Long contentToAddId) {
+
+    }
 
 
 

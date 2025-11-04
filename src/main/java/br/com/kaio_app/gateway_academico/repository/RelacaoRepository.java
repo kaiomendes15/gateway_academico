@@ -23,5 +23,7 @@ public interface RelacaoRepository<T extends Identifiable> {
     Map<Long, List<Long>> findAll();
 
     /** Deleta um item específico de um certo aluno */
-    void deleteById(Long discenteId, Long contentToDeleteId);
+    void deleteItemFromListById(Long discenteId, Long contentToDeleteId);
+
+    void addItemToList(Long discenteId, Long contentToAddId);
 }
