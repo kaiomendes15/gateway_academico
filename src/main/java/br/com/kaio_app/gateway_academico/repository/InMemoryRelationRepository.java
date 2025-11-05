@@ -47,8 +47,8 @@ public class InMemoryRelationRepository<T extends Identifiable> implements Relac
     }
 
     @Override
-    public Optional<List<Long>> findById(Long id) {
-        return Optional.ofNullable(DB_EM_MEMORIA.get(id));
+    public List<Long> findById(Long id) {
+        return DB_EM_MEMORIA.get(id);
     }
 
     @Override
@@ -63,9 +63,18 @@ public class InMemoryRelationRepository<T extends Identifiable> implements Relac
 
     @Override
     public void addItemToList(Long discenteId, Long contentToAddId) {
-
+        DB_EM_MEMORIA.get(discenteId).add(contentToAddId);
     }
 
+    @Override
+    public Integer countByDiscenteId(Long discenteId) {
+        return DB_EM_MEMORIA.get(discenteId).size();
+    }
+
+    @Override
+    public boolean discenteContainItem(Long discenteId, Long itemId) {
+        return DB_EM_MEMORIA.get(discenteId).contains(itemId);
+    }
 
 
 }

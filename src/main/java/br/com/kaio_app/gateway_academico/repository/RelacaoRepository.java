@@ -17,7 +17,7 @@ public interface RelacaoRepository<T extends Identifiable> {
     // salvar todos os alunos na "tabela de junção em memório"
     void saveAll(Collection<T> items);
 
-    Optional<List<Long>> findById(Long id);
+    List<Long> findById(Long discenteId);
 
     /** Retorna todos os itens em memória. */
     Map<Long, List<Long>> findAll();
@@ -26,4 +26,8 @@ public interface RelacaoRepository<T extends Identifiable> {
     void deleteItemFromListById(Long discenteId, Long contentToDeleteId);
 
     void addItemToList(Long discenteId, Long contentToAddId);
+
+    Integer countByDiscenteId(Long discenteId);
+
+    boolean discenteContainItem(Long discenteId, Long contentToAddId);
 }
