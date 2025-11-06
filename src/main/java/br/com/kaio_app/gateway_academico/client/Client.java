@@ -1,6 +1,6 @@
 package br.com.kaio_app.gateway_academico.client;
 
-import br.com.kaio_app.gateway_academico.domain.model.Identifiable;
+import br.com.kaio_app.gateway_academico.domain.model.interfaces.Identifiable;
 
 import java.util.Map;
 

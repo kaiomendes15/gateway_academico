@@ -1,5 +1,6 @@
 package br.com.kaio_app.gateway_academico.domain.model;
 
+import br.com.kaio_app.gateway_academico.domain.model.interfaces.Identifiable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DisciplinaDTO implements Identifiable{
+public class DisciplinaDTO implements Identifiable {
     private Long id;
     private String curso;
     private String nome;
