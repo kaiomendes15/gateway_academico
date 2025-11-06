@@ -4,9 +4,9 @@ package br.com.kaio_app.gateway_academico.config;
 // Removemos DiscenteClient, DisciplinaClient, LivroClient
 // Adicionamos a interface genérica Client
 import br.com.kaio_app.gateway_academico.client.Client;
-import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
-import br.com.kaio_app.gateway_academico.model.DisciplinaDTO;
-import br.com.kaio_app.gateway_academico.model.LivroDTO;
+import br.com.kaio_app.gateway_academico.domain.model.DiscenteDTO;
+import br.com.kaio_app.gateway_academico.domain.model.DisciplinaDTO;
+import br.com.kaio_app.gateway_academico.domain.model.LivroDTO;
 import br.com.kaio_app.gateway_academico.repository.BookRepository;
 import br.com.kaio_app.gateway_academico.repository.DiscenteRepository;
 import br.com.kaio_app.gateway_academico.repository.DisciplinaRepository;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

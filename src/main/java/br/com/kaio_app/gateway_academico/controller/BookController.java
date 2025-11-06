@@ -1,8 +1,8 @@
 package br.com.kaio_app.gateway_academico.controller;
 
-import br.com.kaio_app.gateway_academico.model.ApiError;
-import br.com.kaio_app.gateway_academico.model.LivroDTO;
-import br.com.kaio_app.gateway_academico.service.BookService;
+import br.com.kaio_app.gateway_academico.domain.model.ApiError;
+import br.com.kaio_app.gateway_academico.domain.model.LivroDTO;
+import br.com.kaio_app.gateway_academico.domain.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

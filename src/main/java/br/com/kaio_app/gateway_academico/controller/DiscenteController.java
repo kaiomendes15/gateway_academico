@@ -1,8 +1,8 @@
 package br.com.kaio_app.gateway_academico.controller;
 
-import br.com.kaio_app.gateway_academico.model.ApiError;
-import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
-import br.com.kaio_app.gateway_academico.service.DiscenteService;
+import br.com.kaio_app.gateway_academico.domain.model.ApiError;
+import br.com.kaio_app.gateway_academico.domain.model.DiscenteDTO;
+import br.com.kaio_app.gateway_academico.domain.service.DiscenteService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController

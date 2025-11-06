@@ -1,7 +1,6 @@
 package br.com.kaio_app.gateway_academico.client;
 
-import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
-import br.com.kaio_app.gateway_academico.model.Identifiable;
+import br.com.kaio_app.gateway_academico.domain.model.Identifiable;
 
 import java.util.Map;
 

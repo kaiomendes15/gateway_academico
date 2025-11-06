@@ -1,8 +1,6 @@
-package br.com.kaio_app.gateway_academico.service;
+package br.com.kaio_app.gateway_academico.domain.service;
 
-import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
-import br.com.kaio_app.gateway_academico.model.DisciplinaDTO;
-import br.com.kaio_app.gateway_academico.repository.DiscenteRepository;
+import br.com.kaio_app.gateway_academico.domain.model.DisciplinaDTO;
 import br.com.kaio_app.gateway_academico.repository.DisciplinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

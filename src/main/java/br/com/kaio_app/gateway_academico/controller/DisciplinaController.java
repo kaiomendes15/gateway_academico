@@ -1,11 +1,8 @@
 package br.com.kaio_app.gateway_academico.controller;
 
-import br.com.kaio_app.gateway_academico.model.ApiError;
-import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
-import br.com.kaio_app.gateway_academico.model.DisciplinaDTO;
-import br.com.kaio_app.gateway_academico.repository.DisciplinaRepository;
-import br.com.kaio_app.gateway_academico.service.DiscenteService;
-import br.com.kaio_app.gateway_academico.service.DisciplinaService;
+import br.com.kaio_app.gateway_academico.domain.model.ApiError;
+import br.com.kaio_app.gateway_academico.domain.model.DisciplinaDTO;
+import br.com.kaio_app.gateway_academico.domain.service.DisciplinaService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

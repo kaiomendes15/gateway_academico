@@ -1,11 +1,10 @@
 package br.com.kaio_app.gateway_academico.repository;
 
-import br.com.kaio_app.gateway_academico.model.Identifiable;
+import br.com.kaio_app.gateway_academico.domain.model.Identifiable;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public interface RelacaoRepository<T extends Identifiable> {
     /*
