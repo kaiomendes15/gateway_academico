@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AlunoTrancadoException.class)
     public ResponseEntity<ApiError> handleAlunoTrancado(
-            RecursoNaoEncontradoException e,
+            AlunoTrancadoException e,
             HttpServletRequest request
     ) {
         ApiError errorResponse = new ApiError(
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CursoIncompativelException.class)
     public ResponseEntity<ApiError> handleCursoIncompativel(
-            RecursoNaoEncontradoException e,
+            CursoIncompativelException e,
             HttpServletRequest request
     ) {
         ApiError errorResponse = new ApiError(
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DisciplinaSemVagasException.class)
     public ResponseEntity<ApiError> handleDisciplinaSemVagas(
-            RecursoNaoEncontradoException e,
+            DisciplinaSemVagasException e,
             HttpServletRequest request
     ) {
         ApiError errorResponse = new ApiError(
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(LimiteMatriculaException.class)
     public ResponseEntity<ApiError> handleLimiteMatricula(
-            RecursoNaoEncontradoException e,
+            LimiteMatriculaException e,
             HttpServletRequest request
     ) {
         ApiError errorResponse = new ApiError(
@@ -88,7 +88,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AlunoJaMatriculadoException.class)
     public ResponseEntity<ApiError> handleAlunoJaMatriculado(
-            RecursoNaoEncontradoException e,
+            AlunoJaMatriculadoException e,
             HttpServletRequest request
     ) {
         ApiError errorResponse = new ApiError(
