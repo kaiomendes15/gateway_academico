@@ -9,6 +9,7 @@ import br.com.kaio_app.gateway_academico.repository.RelationDiscenteDisciplinaRe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,5 +69,21 @@ public class MatriculaService {
 
         matriculaRepository.addItemToList(discenteId, disciplinaId);
 
+    }
+
+    public List<Long> exibirMatriculaAluno(Long discenteId) {
+        Optional<DiscenteDTO> discentes =
+                discenteRepository.findById(discenteId);
+
+        if (discentes.isEmpty()) {
+            throw new RecursoNaoEncontradoException("Discente com ID " + discenteId + " não " +
+                    "encontrado.");
+        }
+
+        if (discentes.get().getStatus().equals("Trancado")) {
+            throw new AlunoTrancadoException("O discente " + discentes.get().getNome() + " está com o curso trancado, logo não possui disciplinas matriculadas.");
+        }
+
+        return matriculaRepository.findById(discenteId);
     }
 }
