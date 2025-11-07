@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
     ) {
         ApiError errorResponse = new ApiError(
                 HttpStatus.BAD_REQUEST.value(),
-                "Cursos incompatíveis.",
+                "Erro ao matricular aluno.",
                 e.getMessage(),
                 request.getRequestURI()
         );
@@ -78,7 +78,7 @@ public class GlobalExceptionHandler {
     ) {
         ApiError errorResponse = new ApiError(
                 HttpStatus.BAD_REQUEST.value(),
-                "Cursos incompatíveis.",
+                "Erro ao matricular aluno.",
                 e.getMessage(),
                 request.getRequestURI()
         );
@@ -93,7 +93,7 @@ public class GlobalExceptionHandler {
     ) {
         ApiError errorResponse = new ApiError(
                 HttpStatus.BAD_REQUEST.value(),
-                "Cursos incompatíveis.",
+                "Aluno já matriculado.",
                 e.getMessage(),
                 request.getRequestURI()
         );
