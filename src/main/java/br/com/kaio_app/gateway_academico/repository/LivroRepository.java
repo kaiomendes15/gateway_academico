@@ -4,5 +4,5 @@ import br.com.kaio_app.gateway_academico.domain.model.LivroDTO;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BookRepository extends InMemoryRepository<LivroDTO> {
+public class LivroRepository extends InMemoryRepository<LivroDTO> {
 }

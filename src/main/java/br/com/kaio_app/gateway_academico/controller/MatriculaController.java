@@ -24,7 +24,6 @@ public class MatriculaController {
     public ResponseEntity<Void> matricular(@PathVariable Long discenteId,
                                            @PathVariable Long disciplinaId) {
         matriculaService.matricularAluno(discenteId, disciplinaId);
-        // Se o serviço não lançar exceção, retorna 200 OK (ou 201 Created)
         return ResponseEntity.ok().build();
     }
 

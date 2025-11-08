@@ -7,7 +7,7 @@ import br.com.kaio_app.gateway_academico.client.Client;
 import br.com.kaio_app.gateway_academico.domain.model.DiscenteDTO;
 import br.com.kaio_app.gateway_academico.domain.model.DisciplinaDTO;
 import br.com.kaio_app.gateway_academico.domain.model.LivroDTO;
-import br.com.kaio_app.gateway_academico.repository.BookRepository;
+import br.com.kaio_app.gateway_academico.repository.LivroRepository;
 import br.com.kaio_app.gateway_academico.repository.DiscenteRepository;
 import br.com.kaio_app.gateway_academico.repository.DisciplinaRepository;
 import br.com.kaio_app.gateway_academico.repository.RelationDiscenteDisciplinaRepository;
@@ -30,7 +30,7 @@ public class DataLoader implements CommandLineRunner {
     private final DisciplinaRepository disciplinaRepository;
 
     private final Client<LivroDTO> bookClient;
-    private final BookRepository bookRepository;
+    private final LivroRepository livroRepository;
 
     private final RelationDiscenteDisciplinaRepository relationDiscenteDisciplinaRepository;
 
@@ -42,7 +42,7 @@ public class DataLoader implements CommandLineRunner {
             Client<DisciplinaDTO> disciplinaClient, // <- Mudou
             DisciplinaRepository disciplinaRepository,
             Client<LivroDTO> bookClient, // <- Mudou
-            BookRepository bookRepository,
+            LivroRepository livroRepository,
             RelationDiscenteDisciplinaRepository relationDiscenteDisciplinaRepository
     ) {
         this.disciplinaClient = disciplinaClient;
@@ -50,7 +50,7 @@ public class DataLoader implements CommandLineRunner {
         this.discenteClient = discenteClient;
         this.discenteRepository = discenteRepository;
         this.bookClient = bookClient;
-        this.bookRepository = bookRepository;
+        this.livroRepository = livroRepository;
         this.relationDiscenteDisciplinaRepository = relationDiscenteDisciplinaRepository;
     }
 
@@ -87,7 +87,7 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("Disciplinas carregadas: " + disciplina.size());
 
         Map<Long, LivroDTO> books = bookClient.getAll();
-        bookRepository.saveAll(books.values());
+        livroRepository.saveAll(books.values());
         System.out.println("Livros carregados: " + books.size());
 
         System.out.println("Carga de dados finalizada.");
