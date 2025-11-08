@@ -34,4 +34,12 @@ public class MatriculaController {
                 matriculaService.exibirMatriculaAluno(discenteId);
         return ResponseEntity.ok().body(disciplinas);
     }
+
+    @PutMapping("/{discenteId}/{disciplinaId}")
+    public ResponseEntity<Void> desmatricular(@PathVariable Long discenteId,
+                                              @PathVariable Long disciplinaId) {
+        matriculaService.desmatricularAluno(discenteId, disciplinaId);
+
+        return ResponseEntity.ok().build();
+    }
 }

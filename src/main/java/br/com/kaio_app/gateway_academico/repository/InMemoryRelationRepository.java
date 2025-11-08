@@ -58,7 +58,7 @@ public class InMemoryRelationRepository<T extends Identifiable> implements Relac
 
     @Override
     public void deleteItemFromListById(Long discenteId, Long contentToDeleteId) {
-
+        DB_EM_MEMORIA.get(discenteId).remove(contentToDeleteId);
     }
 
     @Override
