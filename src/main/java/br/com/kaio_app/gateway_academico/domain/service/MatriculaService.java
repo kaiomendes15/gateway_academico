@@ -9,8 +9,9 @@ import br.com.kaio_app.gateway_academico.repository.RelationDiscenteDisciplinaRe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import static java.util.Collections.emptyMap;
 
 @Service
 public class MatriculaService {
@@ -67,11 +68,12 @@ public class MatriculaService {
             throw new AlunoJaMatriculadoException("O discente já está matriculado nesta disciplina.");
         }
 
+        disciplinaRepository.decrementarVagas(disciplinaId);
         matriculaRepository.addItemToList(discenteId, disciplinaId);
 
     }
 
-    public List<Long> exibirMatriculaAluno(Long discenteId) {
+    public Map<Long, DisciplinaDTO> exibirMatriculaAluno(Long discenteId) {
         Optional<DiscenteDTO> discentes =
                 discenteRepository.findById(discenteId);
 
@@ -84,6 +86,27 @@ public class MatriculaService {
             throw new AlunoTrancadoException("O discente " + discentes.get().getNome() + " está com o curso trancado, logo não possui disciplinas matriculadas.");
         }
 
-        return matriculaRepository.findById(discenteId);
+        List<Long> disciplinasId =
+                matriculaRepository.findById(discenteId);
+
+        Map<Long, DisciplinaDTO> disciplinasMatriculadas = new HashMap<>();
+
+        if (disciplinasId.isEmpty()) {
+            return disciplinasMatriculadas;
+        }
+
+        for (int i=0; i<disciplinasId.size(); i++) {
+            Long disciplinaId = disciplinasId.get(i);
+            Optional<DisciplinaDTO> disciplina =
+                    disciplinaRepository.findById(disciplinaId);
+
+            if (disciplina.isPresent()) {
+                disciplinasMatriculadas.put(disciplinaId, disciplina.get());
+            } else {
+                throw new RecursoNaoEncontradoException("Disciplina com " +
+                        "código " + disciplinaId + " não foi encontrada.");
+            }
+        }
+        return disciplinasMatriculadas;
     }
 }
