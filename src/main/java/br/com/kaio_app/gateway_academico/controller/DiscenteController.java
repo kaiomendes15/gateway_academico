@@ -1,8 +1,8 @@
 package br.com.kaio_app.gateway_academico.controller;
 
-import br.com.kaio_app.gateway_academico.model.ApiError;
-import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
-import br.com.kaio_app.gateway_academico.service.DiscenteService;
+import br.com.kaio_app.gateway_academico.domain.model.ApiError;
+import br.com.kaio_app.gateway_academico.domain.model.DiscenteDTO;
+import br.com.kaio_app.gateway_academico.domain.service.DiscenteService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -28,35 +27,17 @@ public class DiscenteController {
         // Lembrete -> O optional de um tipo em uma variável é declarar que
         // aquela variável é opcional, ou seja, ela pode receber um valor com
         // aquele tipo especificado ou null.
-        Optional<DiscenteDTO> student =
+        Optional<DiscenteDTO> discente =
                 discenteService.consultStudentData(id);
 
-        if (student.isPresent()) {
-            return ResponseEntity.ok(student.get()); // Retorna 200 OK
-        } else {
-            ApiError errorResponse = new ApiError(
-                    HttpStatus.NOT_FOUND.value(),
-                    "Dados não foram encontrados.",
-                    "Discente com ID " + id + " não foi encontrado.",
-                    request.getRequestURI()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse); // Retorna 404 Not Found
-        }
+        return ResponseEntity.ok(discente.get());
     }
 
     @GetMapping("")
     public ResponseEntity<Object> consultAllStudents(HttpServletRequest request) {
 
-        Collection<DiscenteDTO> students = discenteService.consultAllStudents();
-        if (students.isEmpty()) {
-            ApiError errorResponse = new ApiError(
-                    HttpStatus.NOT_FOUND.value(),
-                    "Dados não foram encontrados.",
-                    "Nenhum discente foi encontrado no sistema.",
-                    request.getRequestURI()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-        }
-        return ResponseEntity.ok(students);
+        Collection<DiscenteDTO> discentes =
+                discenteService.consultAllStudents();
+        return ResponseEntity.ok(discentes);
     }
 }

@@ -1,4 +1,4 @@
-package br.com.kaio_app.gateway_academico.model;
+package br.com.kaio_app.gateway_academico.domain.model;
 
 import lombok.Data;
 

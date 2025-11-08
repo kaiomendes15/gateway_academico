@@ -1,5 +1,6 @@
-package br.com.kaio_app.gateway_academico.model;
+package br.com.kaio_app.gateway_academico.domain.model;
 
+import br.com.kaio_app.gateway_academico.domain.model.interfaces.Identifiable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;

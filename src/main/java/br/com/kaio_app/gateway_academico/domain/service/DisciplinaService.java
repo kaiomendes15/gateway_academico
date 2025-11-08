@@ -1,8 +1,7 @@
-package br.com.kaio_app.gateway_academico.service;
+package br.com.kaio_app.gateway_academico.domain.service;
 
-import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
-import br.com.kaio_app.gateway_academico.model.DisciplinaDTO;
-import br.com.kaio_app.gateway_academico.repository.DiscenteRepository;
+import br.com.kaio_app.gateway_academico.domain.model.DisciplinaDTO;
+import br.com.kaio_app.gateway_academico.domain.model.exceptions.RecursoNaoEncontradoException;
 import br.com.kaio_app.gateway_academico.repository.DisciplinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +23,20 @@ public class DisciplinaService {
     public Optional<DisciplinaDTO> consultDisciplineData(Long id) {
         // A lógica agora é simples: apenas busca no repositório em memória.
         // O "DataLoader" já fez o trabalho de buscar na API.
-        return disciplinaRepository.findById(id);
+        Optional<DisciplinaDTO> disciplina = disciplinaRepository.findById(id);
+
+        if (disciplina.isEmpty()) {
+            throw new RecursoNaoEncontradoException("Disciplina com ID " + id + " não foi encontrada no sistema.");
+        }
+        return disciplina;
     }
 
     public Collection<DisciplinaDTO> consultAllDisciplines() {
-        return disciplinaRepository.findAll();
+        Collection<DisciplinaDTO> disciplinas = disciplinaRepository.findAll();
+
+        if (disciplinas.isEmpty()) {
+            throw new RecursoNaoEncontradoException("Nenhuma disciplina foi encontrado no sistema.");
+        }
+        return disciplinas;
     }
 }

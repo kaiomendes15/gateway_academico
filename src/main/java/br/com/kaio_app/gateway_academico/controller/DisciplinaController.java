@@ -1,11 +1,8 @@
 package br.com.kaio_app.gateway_academico.controller;
 
-import br.com.kaio_app.gateway_academico.model.ApiError;
-import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
-import br.com.kaio_app.gateway_academico.model.DisciplinaDTO;
-import br.com.kaio_app.gateway_academico.repository.DisciplinaRepository;
-import br.com.kaio_app.gateway_academico.service.DiscenteService;
-import br.com.kaio_app.gateway_academico.service.DisciplinaService;
+import br.com.kaio_app.gateway_academico.domain.model.ApiError;
+import br.com.kaio_app.gateway_academico.domain.model.DisciplinaDTO;
+import br.com.kaio_app.gateway_academico.domain.service.DisciplinaService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,36 +26,16 @@ public class DisciplinaController {
         // Lembrete -> O optional de um tipo em uma variável é declarar que
         // aquela variável é opcional, ou seja, ela pode receber um valor com
         // aquele tipo especificado ou null.
-        Optional<DisciplinaDTO> discipline =
+        Optional<DisciplinaDTO> disciplina =
                 disciplinaService.consultDisciplineData(id);
-
-        if (discipline.isPresent()) {
-            return ResponseEntity.ok(discipline.get()); // Retorna 200 OK
-        } else {
-            ApiError errorResponse = new ApiError(
-                    HttpStatus.NOT_FOUND.value(),
-                    "Dados não foram encontrados.",
-                    "Disciplina com ID " + id + " não foi encontrada.",
-                    request.getRequestURI()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse); // Retorna 404 Not Found
-        }
+        return ResponseEntity.ok(disciplina.get());
     }
 
     @GetMapping("")
     public ResponseEntity<Object> consultAllDisciplines(HttpServletRequest request) {
 
-        Collection<DisciplinaDTO> discipline =
+        Collection<DisciplinaDTO> disciplinas =
                 disciplinaService.consultAllDisciplines();
-        if (discipline.isEmpty()) {
-            ApiError errorResponse = new ApiError(
-                    HttpStatus.NOT_FOUND.value(),
-                    "Dados não foram encontrados.",
-                    "Nenhuma disciplina foi encontrado no sistema.",
-                    request.getRequestURI()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-        }
-        return ResponseEntity.ok(discipline);
+        return ResponseEntity.ok(disciplinas);
     }
 }

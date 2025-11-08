@@ -2,9 +2,9 @@ package br.com.kaio_app.gateway_academico.config;
 
 import br.com.kaio_app.gateway_academico.client.Client;
 import br.com.kaio_app.gateway_academico.client.GenericClient;
-import br.com.kaio_app.gateway_academico.model.DiscenteDTO;
-import br.com.kaio_app.gateway_academico.model.DisciplinaDTO;
-import br.com.kaio_app.gateway_academico.model.LivroDTO;
+import br.com.kaio_app.gateway_academico.domain.model.DiscenteDTO;
+import br.com.kaio_app.gateway_academico.domain.model.DisciplinaDTO;
+import br.com.kaio_app.gateway_academico.domain.model.LivroDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
