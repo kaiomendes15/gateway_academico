@@ -27,35 +27,17 @@ public class DiscenteController {
         // Lembrete -> O optional de um tipo em uma variável é declarar que
         // aquela variável é opcional, ou seja, ela pode receber um valor com
         // aquele tipo especificado ou null.
-        Optional<DiscenteDTO> student =
+        Optional<DiscenteDTO> discente =
                 discenteService.consultStudentData(id);
 
-        if (student.isPresent()) {
-            return ResponseEntity.ok(student.get()); // Retorna 200 OK
-        } else {
-            ApiError errorResponse = new ApiError(
-                    HttpStatus.NOT_FOUND.value(),
-                    "Dados não foram encontrados.",
-                    "Discente com ID " + id + " não foi encontrado.",
-                    request.getRequestURI()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse); // Retorna 404 Not Found
-        }
+        return ResponseEntity.ok(discente.get());
     }
 
     @GetMapping("")
     public ResponseEntity<Object> consultAllStudents(HttpServletRequest request) {
 
-        Collection<DiscenteDTO> students = discenteService.consultAllStudents();
-        if (students.isEmpty()) {
-            ApiError errorResponse = new ApiError(
-                    HttpStatus.NOT_FOUND.value(),
-                    "Dados não foram encontrados.",
-                    "Nenhum discente foi encontrado no sistema.",
-                    request.getRequestURI()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-        }
-        return ResponseEntity.ok(students);
+        Collection<DiscenteDTO> discentes =
+                discenteService.consultAllStudents();
+        return ResponseEntity.ok(discentes);
     }
 }
