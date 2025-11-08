@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static java.util.Collections.emptyMap;
-
 @Service
 public class MatriculaService {
 
@@ -49,7 +47,11 @@ public class MatriculaService {
         }
 
         if (discentes.get().getStatus().equals("Trancado")) {
-            throw new AlunoTrancadoException("O discente " + discentes.get().getNome() + " não pode se matricular pois seu status é 'Trancado'.");
+            throw new AlunoStatusInvalidoException("O discente " + discentes.get().getNome() + " não pode se matricular pois seu status é 'Trancado'.");
+        }
+
+        if (discentes.get().getStatus().equals("Cancelado")) {
+            throw new AlunoStatusInvalidoException("O discente " + discentes.get().getNome() + " não pode se matricular pois seu status é 'Cancelado'.");
         }
 
         if (!discentes.get().getCurso().equals(disciplinas.get().getCurso())) {
@@ -83,7 +85,7 @@ public class MatriculaService {
         }
 
         if (discentes.get().getStatus().equals("Trancado")) {
-            throw new AlunoTrancadoException("O discente " + discentes.get().getNome() + " está com o curso trancado, logo não possui disciplinas matriculadas.");
+            throw new AlunoStatusInvalidoException("O discente " + discentes.get().getNome() + " está com o curso trancado, logo não possui disciplinas matriculadas.");
         }
 
         List<Long> disciplinasId =

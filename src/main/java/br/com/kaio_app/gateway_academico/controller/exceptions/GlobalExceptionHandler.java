@@ -26,9 +26,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @ExceptionHandler(AlunoTrancadoException.class)
+    @ExceptionHandler(AlunoStatusInvalidoException.class)
     public ResponseEntity<ApiError> handleAlunoTrancado(
-            AlunoTrancadoException e,
+            AlunoStatusInvalidoException e,
             HttpServletRequest request
     ) {
         ApiError errorResponse = new ApiError(
