@@ -74,6 +74,39 @@ public class MatriculaService {
         matriculaRepository.addItemToList(discenteId, disciplinaId);
 
     }
+    public void desmatricularAluno(Long discenteId, Long disciplinaId) {
+        Optional<DiscenteDTO> discentes =
+                discenteRepository.findById(discenteId);
+        Optional<DisciplinaDTO> disciplinas =
+                disciplinaRepository.findById(disciplinaId);
+
+        if (discentes.isEmpty()) {
+            throw new RecursoNaoEncontradoException("Discente com ID " + discenteId + " não " +
+                    "encontrado.");
+        }
+
+        if (disciplinas.isEmpty()) {
+            throw new RecursoNaoEncontradoException("Disciplina com ID " + disciplinaId + " não " +
+                    "encontrada.");
+        }
+
+        if (discentes.get().getStatus().equals("Trancado")) {
+            throw new AlunoStatusInvalidoException("O discente " + discentes.get().getNome() + " não pode se desmatricular pois seu status é 'Trancado'.");
+        }
+
+        if (discentes.get().getStatus().equals("Cancelado")) {
+            throw new AlunoStatusInvalidoException("O discente " + discentes.get().getNome() + " não pode se desmatricular pois seu status é 'Cancelado'.");
+        }
+
+        if (!matriculaRepository.discenteContainItem(discenteId,
+                disciplinaId)) {
+            throw new AlunoJaMatriculadoException("O discente não está " +
+                    "matriculado " + "nesta disciplina.");
+        }
+
+        disciplinaRepository.incrementarVagas(disciplinaId);
+        matriculaRepository.deleteItemFromListById(discenteId, disciplinaId);
+    }
 
     public Map<Long, DisciplinaDTO> exibirMatriculaAluno(Long discenteId) {
         Optional<DiscenteDTO> discentes =
