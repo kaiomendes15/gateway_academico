@@ -17,8 +17,6 @@ public class MatriculaController {
 
     @Autowired
     private MatriculaService matriculaService;
-    @Autowired
-    private DisciplinaRepository disciplinaRepository;
 
     @PostMapping("/{discenteId}/{disciplinaId}")
     public ResponseEntity<Void> matricular(@PathVariable Long discenteId,
