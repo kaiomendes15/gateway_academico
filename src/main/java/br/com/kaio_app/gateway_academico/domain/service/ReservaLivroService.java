@@ -49,6 +49,11 @@ public class ReservaLivroService {
             throw new AlunoStatusInvalidoException("O discente " + discentes.get().getNome() + " realizou o cancelamento de sua graduação, logo não possui livros reservados.");
         }
 
+        if (livro.isEmpty()) {
+            throw new RecursoNaoEncontradoException("Livro com ID " + livroId +
+                    " não encontrado.");
+        }
+
         if (livro.get().getStatus().equals("Indisponível")) {
             throw new LivroIndisponivelException("O livro com ID " + livroId +
                     " está indisponível para reserva.");
@@ -63,7 +68,8 @@ public class ReservaLivroService {
             throw new LivroJaReservadoException("O livro com ID " + livroId + " já foi reservado pelo discente " + discentes.get().getNome());
         }
 
-
+        livroRepository.alternarStatusLivro(livroId);
+        reservaLivroRepository.addItemToList(discenteId, livroId);
     }
     public void cancelarReservaLivro(Long discenteId, Long livroId) {}
     public Map<Long, LivroDTO> exibirLivrosReservados(Long discenteId) {
