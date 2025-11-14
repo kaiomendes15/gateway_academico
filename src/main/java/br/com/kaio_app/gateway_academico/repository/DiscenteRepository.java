@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 // O Spring vai tratar essa classe como um Data Access Objects (DAOs)
 public class DiscenteRepository extends InMemoryRepository<DiscenteDTO>{
     public Collection<DiscenteDTO> buscaDiscentesCurso(String curso) {
+        System.out.println("Entrou no metodo");
         Collection<DiscenteDTO> todosDiscentes = this.findAll();
         return todosDiscentes
                 .stream()
@@ -22,7 +23,7 @@ public class DiscenteRepository extends InMemoryRepository<DiscenteDTO>{
         Collection<DiscenteDTO> todosDiscentes = this.findAll();
         return todosDiscentes
                 .stream()
-                .filter(d -> d.getCurso().contains(nome))
+                .filter(d -> d.getNome().contains(nome))
                 .collect(Collectors.toList());
     }
 
