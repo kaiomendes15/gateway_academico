@@ -7,10 +7,7 @@ import br.com.kaio_app.gateway_academico.client.Client;
 import br.com.kaio_app.gateway_academico.domain.model.DiscenteDTO;
 import br.com.kaio_app.gateway_academico.domain.model.DisciplinaDTO;
 import br.com.kaio_app.gateway_academico.domain.model.LivroDTO;
-import br.com.kaio_app.gateway_academico.repository.LivroRepository;
-import br.com.kaio_app.gateway_academico.repository.DiscenteRepository;
-import br.com.kaio_app.gateway_academico.repository.DisciplinaRepository;
-import br.com.kaio_app.gateway_academico.repository.RelationDiscenteDisciplinaRepository;
+import br.com.kaio_app.gateway_academico.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -33,6 +30,7 @@ public class DataLoader implements CommandLineRunner {
     private final LivroRepository livroRepository;
 
     private final RelationDiscenteDisciplinaRepository relationDiscenteDisciplinaRepository;
+    private final RelacaoDiscenteLivroRepository relacaoDiscenteLivroRepository;
 
     @Autowired
     // 3. CONSTRUTOR ATUALIZADO
@@ -43,7 +41,8 @@ public class DataLoader implements CommandLineRunner {
             DisciplinaRepository disciplinaRepository,
             Client<LivroDTO> bookClient, // <- Mudou
             LivroRepository livroRepository,
-            RelationDiscenteDisciplinaRepository relationDiscenteDisciplinaRepository
+            RelationDiscenteDisciplinaRepository relationDiscenteDisciplinaRepository,
+            RelacaoDiscenteLivroRepository relacaoDiscenteLivroRepository
     ) {
         this.disciplinaClient = disciplinaClient;
         this.disciplinaRepository = disciplinaRepository;
@@ -52,6 +51,7 @@ public class DataLoader implements CommandLineRunner {
         this.bookClient = bookClient;
         this.livroRepository = livroRepository;
         this.relationDiscenteDisciplinaRepository = relationDiscenteDisciplinaRepository;
+        this.relacaoDiscenteLivroRepository = relacaoDiscenteLivroRepository;
     }
 
     @Override
@@ -70,16 +70,33 @@ public class DataLoader implements CommandLineRunner {
 
         relationDiscenteDisciplinaRepository.saveAll(discentes.values());
         /* vvv remover isso vvv*/
-        Map<Long, List<Long>> hash =
+        Map<Long, List<Long>> hashMatricula =
                 relationDiscenteDisciplinaRepository.findAll();
-        for (Map.Entry<Long, List<Long>> entry : hash.entrySet()) {
+        for (Map.Entry<Long, List<Long>> entry : hashMatricula.entrySet()) {
             Long key = entry.getKey();
             List<Long> value = entry.getValue();
             System.out.println("Usuário " + key + ", Lista de disciplinas " +
                     "matriculadas: " + value);
         }
         /* ^^^^ remover isso ^^^^*/
-        System.out.println("Discentes alocados no hashmap de relação.");
+        System.out.println("Discentes alocados no hashmap de relação de " +
+                "matricula" +
+                ".");
+
+        relacaoDiscenteLivroRepository.saveAll(discentes.values());
+        /* vvv remover isso vvv*/
+        Map<Long, List<Long>> hashReservaLivros =
+                relacaoDiscenteLivroRepository.findAll();
+        for (Map.Entry<Long, List<Long>> entry : hashReservaLivros.entrySet()) {
+            Long key = entry.getKey();
+            List<Long> value = entry.getValue();
+            System.out.println("Usuário " + key + ", Lista de livros " +
+                    "reservados: " + value);
+        }
+        /* ^^^^ remover isso ^^^^*/
+        System.out.println("Discentes alocados no hashmap de relação de " +
+                "reserva" +
+                ".");
 
 
         Map<Long, DisciplinaDTO> disciplina = disciplinaClient.getAll();

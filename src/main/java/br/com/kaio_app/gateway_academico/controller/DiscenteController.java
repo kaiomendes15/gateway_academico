@@ -40,4 +40,57 @@ public class DiscenteController {
                 discenteService.consultAllStudents();
         return ResponseEntity.ok(discentes);
     }
+
+    @GetMapping("/curso/{curso}")
+    public ResponseEntity<Object> buscaDiscentesCurso(@PathVariable String curso,
+                                                      HttpServletRequest request) {
+        Collection<DiscenteDTO> discentes =
+                discenteService.buscaDiscentesCurso(curso);
+        return ResponseEntity.ok(discentes);
+    }
+
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<Object> buscaDiscentesNome(@PathVariable String nome,
+                                                      HttpServletRequest request) {
+        Collection<DiscenteDTO> discentes =
+                discenteService.buscaDiscentesNome(nome);
+        return ResponseEntity.ok(discentes);
+    }
+
+    @GetMapping("/status/ativo")
+    public ResponseEntity<Object> buscaDiscentesAtivos(HttpServletRequest request) {
+        Collection<DiscenteDTO> discentes =
+                discenteService.buscaDiscentesAtivos();
+        return ResponseEntity.ok(discentes);
+    }
+
+    @GetMapping("/status/trancado")
+    public ResponseEntity<Object> buscaDiscentesTrancados(HttpServletRequest request) {
+        Collection<DiscenteDTO> discentes =
+                discenteService.buscaDiscentesTrancados();
+        return ResponseEntity.ok(discentes);
+    }
+
+    // --- Rotas de Modalidade ---
+
+    @GetMapping("/modalidade/ead")
+    public ResponseEntity<Object> buscaDiscentesEAD(HttpServletRequest request) {
+        Collection<DiscenteDTO> discentes =
+                discenteService.buscaDiscentesEAD();
+        return ResponseEntity.ok(discentes);
+    }
+
+    @GetMapping("/modalidade/hibrido")
+    public ResponseEntity<Object> buscaDiscentesHibrido(HttpServletRequest request) {
+        Collection<DiscenteDTO> discentes =
+                discenteService.buscaDiscentesHibrido();
+        return ResponseEntity.ok(discentes);
+    }
+
+    @GetMapping("/modalidade/presencial")
+    public ResponseEntity<Object> buscaDiscentesPresencial(HttpServletRequest request) {
+        Collection<DiscenteDTO> discentes =
+                discenteService.buscaDiscentesPresencial();
+        return ResponseEntity.ok(discentes);
+    }
 }

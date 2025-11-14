@@ -100,4 +100,50 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
+
+    @ExceptionHandler(LivroIndisponivelException.class)
+    public ResponseEntity<ApiError> handleRecursoNaoEncontrado(
+            LivroIndisponivelException e,
+            HttpServletRequest request
+    ) {
+        ApiError errorResponse = new ApiError(
+                HttpStatus.NOT_FOUND.value(),
+                "Livro indisponível.",
+                e.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(LimiteReservaException.class)
+    public ResponseEntity<ApiError> handleRecursoNaoEncontrado(
+            LimiteReservaException e,
+            HttpServletRequest request
+    ) {
+        ApiError errorResponse = new ApiError(
+                HttpStatus.NOT_FOUND.value(),
+                "Erro ao reservar o livro.",
+                e.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(LivroJaReservadoException.class)
+    public ResponseEntity<ApiError> handleAlunoJaMatriculado(
+            LivroJaReservadoException e,
+            HttpServletRequest request
+    ) {
+        ApiError errorResponse = new ApiError(
+                HttpStatus.BAD_REQUEST.value(),
+                "Livro já reservado pelo discente.",
+                e.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
 }
