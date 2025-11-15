@@ -24,6 +24,13 @@ public class ReservaLivroController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{discenteId}/{livroId}")
+    public ResponseEntity<Void> cancelarReserva(@PathVariable Long discenteId,
+                                         @PathVariable Long livroId) {
+        reservaLivroService.cancelarReservaLivro(discenteId, livroId);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/{discenteId}")
     public ResponseEntity<Map<Long, LivroDTO>> exibirLivrosReservados(@PathVariable Long discenteId) {
         Map<Long, LivroDTO> livros = reservaLivroService.exibirLivrosReservados(discenteId);

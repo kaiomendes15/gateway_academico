@@ -146,4 +146,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
+    @ExceptionHandler(LivroNaoReservadoPeloDiscenteException.class)
+    public ResponseEntity<ApiError> handleAlunoJaMatriculado(
+            LivroNaoReservadoPeloDiscenteException e,
+            HttpServletRequest request
+    ) {
+        ApiError errorResponse = new ApiError(
+                HttpStatus.BAD_REQUEST.value(),
+                "Livro não reservado pelo discente.",
+                e.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
 }

@@ -71,7 +71,38 @@ public class ReservaLivroService {
         livroRepository.alternarStatusLivro(livroId);
         reservaLivroRepository.addItemToList(discenteId, livroId);
     }
-    public void cancelarReservaLivro(Long discenteId, Long livroId) {}
+    public void cancelarReservaLivro(Long discenteId, Long livroId) {
+        Optional<DiscenteDTO> discentes =
+                discenteRepository.findById(discenteId);
+        Optional<LivroDTO> livro =
+                livroRepository.findById(livroId);
+
+        if (discentes.isEmpty()) {
+            throw new RecursoNaoEncontradoException("Discente com ID " + discenteId + " não " +
+                    "encontrado.");
+        }
+
+        if (discentes.get().getStatus().equals("Trancado")) {
+            throw new AlunoStatusInvalidoException("O discente " + discentes.get().getNome() + " está com o curso trancado, logo não possui livros reservados.");
+        }
+
+        if (discentes.get().getStatus().equals("Cancelado")) {
+            throw new AlunoStatusInvalidoException("O discente " + discentes.get().getNome() + " realizou o cancelamento de sua graduação, logo não possui livros reservados.");
+        }
+
+        if (livro.isEmpty()) {
+            throw new RecursoNaoEncontradoException("Livro com ID " + livroId +
+                    " não encontrado.");
+        }
+
+        if (!reservaLivroRepository.discenteContainItem(discenteId, livroId)) {
+            throw new LivroNaoReservadoPeloDiscenteException("O livro com ID " + livroId + " não foi reservado " +
+                    "pelo discente " + discentes.get().getNome());
+        }
+
+        livroRepository.alternarStatusLivro(livroId);
+        reservaLivroRepository.deleteItemFromListById(discenteId, livroId);
+    }
     public Map<Long, LivroDTO> exibirLivrosReservados(Long discenteId) {
         Optional<DiscenteDTO> discentes =
                 discenteRepository.findById(discenteId);
