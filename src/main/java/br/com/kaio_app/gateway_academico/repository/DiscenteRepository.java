@@ -39,7 +39,7 @@ public class DiscenteRepository extends InMemoryRepository<DiscenteDTO>{
         Collection<DiscenteDTO> todosDiscentes = this.findAll();
         return todosDiscentes
                 .stream()
-                .filter(d -> !d.getStatus().equalsIgnoreCase("Ativo"))
+                .filter(d -> !d.getStatus().equalsIgnoreCase("Ativo") && !d.getStatus().equalsIgnoreCase("Concluído"))
                 .collect(Collectors.toList());
     }
 
